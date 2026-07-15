@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<title>Laporan Tugas Akhir - NetPruyChat</title>
+<style>
+  @page { size: A4; margin: 2.2cm 2cm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Times New Roman", Georgia, serif;
+    font-size: 12pt;
+    line-height: 1.55;
+    color: #111;
+    margin: 0;
+  }
+  h1, h2, h3 { font-family: "Times New Roman", Georgia, serif; color: #0f172a; }
+  h2 {
+    font-size: 15pt;
+    border-bottom: 2px solid #0f172a;
+    padding-bottom: 4px;
+    margin-top: 26px;
+  }
+  h3 { font-size: 13pt; margin-top: 18px; }
+  p { text-align: justify; margin: 8px 0; }
+  ul, ol { margin: 8px 0; padding-left: 22px; }
+  li { margin: 3px 0; text-align: justify; }
+  code, .mono { font-family: "Consolas", "Courier New", monospace; font-size: 10.5pt; }
+
+  /* Cover */
+  .cover { text-align: center; height: 24.5cm; display: flex; flex-direction: column;
+           justify-content: center; page-break-after: always; }
+  .cover .kicker { letter-spacing: 3px; font-size: 12pt; text-transform: uppercase; color: #475569; }
+  .cover h1 { font-size: 26pt; margin: 14px 0 6px; }
+  .cover .sub { font-size: 13pt; color: #334155; margin-bottom: 40px; }
+  .cover .logo {
+    width: 90px; height: 90px; margin: 0 auto 26px; border-radius: 20px;
+    background: #0f172a; color: #fff; font-size: 46px; font-weight: bold;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cover .ident { font-size: 13pt; line-height: 2; margin-top: 20px; }
+  .cover .ident b { display: inline-block; min-width: 150px; text-align: left; }
+  .cover .footer-inst { margin-top: 46px; font-size: 12.5pt; line-height: 1.7; color: #1e293b; }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 11pt; }
+  th, td { border: 1px solid #94a3b8; padding: 6px 9px; text-align: left; vertical-align: top; }
+  th { background: #e2e8f0; }
+  td.ok { color: #15803d; font-weight: bold; text-align: center; }
+
+  /* Code block */
+  pre {
+    background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 6px;
+    padding: 10px 12px; font-family: "Consolas", "Courier New", monospace;
+    font-size: 10pt; line-height: 1.4; overflow-x: auto; white-space: pre-wrap;
+  }
+
+  /* Flowchart */
+  .flow { text-align: center; margin: 14px 0; }
+  .node {
+    display: inline-block; border: 1.5px solid #0f172a; border-radius: 8px;
+    padding: 7px 14px; margin: 0 auto; background: #f8fafc; font-size: 11pt; min-width: 220px;
+  }
+  .node.start, .node.end { border-radius: 22px; background: #0f172a; color: #fff; }
+  .node.cond { background: #fef9c3; border-color: #ca8a04; }
+  .arrow { font-size: 15pt; color: #334155; margin: 2px 0; }
+  .arrow small { font-size: 9pt; color: #64748b; }
+
+  /* Communication diagram */
+  .comm { border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px 14px; background: #f8fafc;
+          font-family: "Consolas", monospace; font-size: 10pt; white-space: pre; overflow-x: auto; line-height: 1.35; }
+
+  /* Screenshot placeholder */
+  .ss {
+    border: 2px dashed #94a3b8; border-radius: 8px; background: #f8fafc;
+    min-height: 210px; display: flex; align-items: center; justify-content: center;
+    text-align: center; color: #64748b; font-size: 11pt; padding: 20px; margin: 8px 0;
+  }
+  .fig { font-size: 10.5pt; color: #475569; text-align: center; margin: 4px 0 18px; font-style: italic; }
+
+  .note { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 8px 12px; margin: 10px 0; font-size: 11pt; }
+  .section { page-break-before: always; }
+  .qa h3 { color: #1e3a8a; }
+  .toc li { margin: 5px 0; }
+</style>
+</head>
+<body>
+
+<!-- ================= COVER ================= -->
+<div class="cover">
+  <div class="logo">N</div>
+  <div class="kicker">Laporan Tugas Akhir</div>
+  <h1>NetPruyChat</h1>
+  <div class="sub">Aplikasi Chat Client-Server Real-Time dengan Verifikasi Email<br/>(Mata Kuliah Pemrograman Jaringan)</div>
+
+  <div class="ident">
+    <div><b>Nama</b>: Givandra Apriliano</div>
+    <div><b>NPM</b>: 50422623</div>
+    <div><b>Kelas</b>: 4IA06</div>
+    <div><b>Mata Kuliah</b>: Pemrograman Jaringan</div>
+    <div><b>Dosen</b>: [Nama Dosen]</div>
+  </div>
+
+  <div class="footer-inst">
+    Program Studi Teknik Informatika<br/>
+    Fakultas Teknologi Industri<br/>
+    Universitas Gunadarma<br/>
+    2026
+  </div>
+</div>
+
+<!-- ================= DAFTAR ISI ================= -->
+<h2>Daftar Isi</h2>
+<ol class="toc">
+  <li>Judul dan Deskripsi Aplikasi</li>
+  <li>Arsitektur Sistem</li>
+  <li>Flowchart / Diagram Komunikasi</li>
+  <li>Penjelasan Implementasi</li>
+  <li>Hasil Pengujian</li>
+  <li>Kesimpulan</li>
+  <li>Jawaban Pertanyaan</li>
+</ol>
+
+<!-- ================= 1. JUDUL & DESKRIPSI ================= -->
+<div class="section">
+<h2>1. Judul dan Deskripsi Aplikasi</h2>
+
+<h3>1.1 Judul</h3>
+<p><b>NetPruyChat — Aplikasi Chat Client-Server Real-Time dengan Verifikasi Email.</b></p>
+
+<h3>1.2 Deskripsi</h3>
+<p>NetPruyChat adalah aplikasi <i>chat</i> berbasis web yang menerapkan konsep
+<b>client-server</b>. Banyak <i>client</i> (browser) terhubung ke satu
+<i>server</i> pusat, lalu saling bertukar pesan teks dan berkas secara
+<i>real-time</i> di dalam sebuah <i>room</i>. Komunikasi memanfaatkan dua
+protokol jaringan sekaligus: <b>HTTP</b> untuk autentikasi dan pengunggahan
+berkas, serta <b>WebSocket</b> (melalui pustaka Socket.IO) untuk pertukaran
+pesan dua arah yang berlangsung terus-menerus.</p>
+
+<p>Sebagai fitur keamanan, proses registrasi dilengkapi <b>verifikasi email
+(kode OTP)</b>. Ketika mendaftar, server mengirim kode enam digit ke alamat
+email pengguna; akun baru hanya dapat digunakan untuk masuk setelah kode
+tersebut diverifikasi.</p>
+
+<h3>1.3 Tujuan</h3>
+<ul>
+  <li>Memahami dan menerapkan konsep komunikasi jaringan berbasis client-server.</li>
+  <li>Mengimplementasikan komunikasi data melalui protokol HTTP dan WebSocket.</li>
+  <li>Mengirim dan menerima data (pesan teks maupun berkas) melalui jaringan.</li>
+  <li>Menangani koneksi, pengolahan pesan, dan penanganan kesalahan.</li>
+  <li>Menambahkan lapisan keamanan berupa verifikasi email dan penyandian kata sandi.</li>
+</ul>
+
+<h3>1.4 Ruang Lingkup Fitur</h3>
+<ul>
+  <li>Registrasi dengan verifikasi kode email (OTP) melalui Gmail.</li>
+  <li>Login berbasis token sesi (mendukung <i>auto-login</i> setelah <i>refresh</i>).</li>
+  <li>Kata sandi disimpan sebagai <i>hash</i> scrypt + salt (bukan teks polos).</li>
+  <li>Chat teks <i>real-time</i> di dalam room.</li>
+  <li>Pengiriman berkas (gambar, PDF, dokumen Office, teks, zip) hingga 25 MB.</li>
+  <li>Indikator "sedang mengetik", daftar anggota online, dan riwayat pesan.</li>
+  <li>Penanganan kesalahan koneksi, validasi input, serta batas tipe/ukuran berkas.</li>
+</ul>
+</div>
+
+<!-- ================= 2. ARSITEKTUR ================= -->
+<div class="section">
+<h2>2. Arsitektur Sistem</h2>
+
+<p>Aplikasi menganut model <b>client-server</b>. Sisi <i>client</i> berjalan di
+peramban dan bertanggung jawab atas tampilan serta interaksi pengguna. Sisi
+<i>server</i> berjalan di atas Node.js dan menangani autentikasi, penyimpanan
+data, penerusan pesan, serta pengunggahan berkas. Terdapat pula layanan luar,
+yaitu <b>SMTP Gmail</b>, untuk pengiriman email verifikasi.</p>
+
+<div class="comm">
+ CLIENT (Browser)                              SERVER (Node.js)
+ +---------------------+   HTTP (REST/JSON)     +------------------------------+
+ |  index.html         | ---------------------> |  Express                     |
+ |  app.js  (logika)   |   register / verify    |   |- authHandler   (auth)    |
+ |  ui.js   (tampilan) |   login / logout       |   |- uploadHandler (multer)  |
+ |  socket.js (WS)     |   upload berkas        |   |- berkas statis (public/) |
+ |                     |                        |                              |
+ |                     |   WebSocket (Socket.IO)|  Socket.IO                   |
+ |                     | <====================> |   |- socketHandlers (chat)  |
+ +---------------------+   pesan real-time      +------------------------------+
+                                                   userStore  -> data/users.json
+                                                   sessions      (memori/RAM)
+                                                   verifications (memori/RAM)
+                                                   chatManager   (memori/RAM)
+                                                   mailer -> SMTP Gmail (email)
+</div>
+<div class="fig">Gambar 1. Diagram arsitektur sistem NetPruyChat.</div>
+
+<h3>2.1 Komponen Utama</h3>
+<table>
+  <tr><th>Lapisan</th><th>Komponen</th><th>Peran</th></tr>
+  <tr><td>Client</td><td>index.html, app.js, ui.js, socket.js</td><td>Antarmuka pengguna, logika autentikasi sisi client, render tampilan, dan koneksi WebSocket.</td></tr>
+  <tr><td rowspan="2">Server (HTTP)</td><td>Express + authHandler</td><td>Endpoint register, verify, resend, login, logout.</td></tr>
+  <tr><td>uploadHandler (Multer)</td><td>Menerima unggahan berkas dan membalas metadata.</td></tr>
+  <tr><td>Server (WebSocket)</td><td>Socket.IO + socketHandlers</td><td>Event chat real-time: join, message, typing, disconnect.</td></tr>
+  <tr><td rowspan="4">Penyimpanan &amp; layanan</td><td>userStore</td><td>Akun pengguna disimpan ke berkas <span class="mono">data/users.json</span> (hash scrypt).</td></tr>
+  <tr><td>sessions / verifications</td><td>Token sesi dan kode OTP di memori (RAM).</td></tr>
+  <tr><td>chatManager</td><td>Daftar user per room dan riwayat pesan (RAM).</td></tr>
+  <tr><td>mailer (Nodemailer)</td><td>Mengirim email kode verifikasi via SMTP Gmail.</td></tr>
+</table>
+
+<h3>2.2 Teknologi yang Digunakan</h3>
+<table>
+  <tr><th>Kebutuhan</th><th>Teknologi</th></tr>
+  <tr><td><i>Runtime</i></td><td>Node.js 18+</td></tr>
+  <tr><td>Server HTTP &amp; routing</td><td>Express</td></tr>
+  <tr><td>Komunikasi real-time</td><td>Socket.IO (WebSocket)</td></tr>
+  <tr><td>Unggah berkas</td><td>Multer</td></tr>
+  <tr><td>Pengiriman email OTP</td><td>Nodemailer (SMTP Gmail)</td></tr>
+  <tr><td>Konfigurasi rahasia</td><td>dotenv (berkas <span class="mono">.env</span>)</td></tr>
+  <tr><td>Keamanan kata sandi</td><td>Modul <span class="mono">crypto</span> bawaan Node (scrypt)</td></tr>
+  <tr><td>Antarmuka</td><td>HTML, CSS (tema gelap ala shadcn/ui), ikon Lucide</td></tr>
+</table>
+</div>
+
+<!-- ================= 3. FLOWCHART ================= -->
+<div class="section">
+<h2>3. Flowchart / Diagram Komunikasi</h2>
+
+<h3>3.1 Alur Registrasi dan Verifikasi Email</h3>
+<div class="flow">
+  <div class="node start">Mulai</div>
+  <div class="arrow">&#8595;</div>
+  <div class="node">Pengguna isi username, email, password, room</div>
+  <div class="arrow">&#8595;</div>
+  <div class="node">Client &#8594; POST /api/register</div>
+  <div class="arrow">&#8595;</div>
+  <div class="node cond">Data valid &amp; belum terdaftar?</div>
+  <div class="arrow">&#8595; ya <small>(tidak &#8594; tampilkan pesan error)</small></div>
+  <div class="node">Server buat akun (verified=false) &amp; kirim kode ke email</div>
+  <div class="arrow">&#8595;</div>
+  <div class="node">Pengguna masukkan kode &#8594; POST /api/verify</div>
+  <div class="arrow">&#8595;</div>
+  <div class="node cond">Kode cocok &amp; belum kedaluwarsa?</div>
+  <div class="arrow">&#8595; ya <small>(tidak &#8594; pesan error / kirim ulang)</small></div>
+  <div class="node">Akun diaktifkan (verified=true) &#8594; login otomatis</div>
+  <div class="arrow">&#8595;</div>
+  <div class="node end">Masuk ke Room</div>
+</div>
+<div class="fig">Gambar 2. Flowchart alur registrasi dan verifikasi email.</div>
+
+<h3>3.2 Diagram Komunikasi Chat (WebSocket)</h3>
+<div class="comm">
+ Client A                     Server (Socket.IO)                 Client B
+    |                                |                                |
+    |  emit "join" {token, room}     |                                |
+    | -----------------------------> |  validasi token (sessions)     |
+    |                                |  simpan user ke room            |
+    |  <-- "history" (riwayat)       |                                |
+    |                                |  emit "notice" (A bergabung) -->|
+    |                                |                                |
+    |  emit "chatMessage" ("Halo")   |                                |
+    | -----------------------------> |  buat objek pesan + simpan      |
+    |                                |  broadcast "message" ke room -->|
+    |  <-- "message" ("Halo")        |  ----------------------------->|
+    |                                |                                |
+</div>
+<div class="fig">Gambar 3. Diagram komunikasi pesan chat secara real-time.</div>
+
+<h3>3.3 Diagram Pengiriman Berkas (HTTP + WebSocket)</h3>
+<div class="comm">
+ Client                         Server
+   |   POST /upload (berkas)       |
+   | ---------------------------> | Multer simpan ke disk (uploads/)
+   |                              | validasi tipe &amp; ukuran (&le; 25 MB)
+   |  <-- JSON metadata berkas    | { originalName, url, size, mimeType }
+   |                              |
+   |  emit "fileMessage" (meta)   |
+   | ---------------------------> | broadcast "message" (type=file)
+   |                              | ke seluruh anggota room --------->
+</div>
+<div class="fig">Gambar 4. Diagram pengiriman berkas (dipisah dari jalur chat teks).</div>
+</div>
+
+<!-- ================= 4. IMPLEMENTASI ================= -->
+<div class="section">
+<h2>4. Penjelasan Implementasi</h2>
+
+<h3>4.1 Titik Masuk Server</h3>
+<p>Berkas <span class="mono">server.js</span> menggabungkan Express (HTTP) dan
+Socket.IO (WebSocket) di atas satu <i>HTTP server</i> yang sama. Express
+menyajikan berkas statis dari folder <span class="mono">public/</span>,
+menangani endpoint autentikasi dan unggah, sedangkan Socket.IO menangani setiap
+koneksi <i>real-time</i>.</p>
+<pre>const server = http.createServer(app);
+const io = new Server(server);
+
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "..", "public")));
+app.use("/uploads", express.static(UPLOAD_DIR));
+app.use("/", authHandler);     // /api/register, /api/verify, /api/login, ...
+app.use("/", uploadHandler);   // /upload
+
+io.on("connection", (socket) => registerSocketHandlers(io, socket));
+server.listen(PORT);</pre>
+
+<h3>4.2 Keamanan Kata Sandi (scrypt + salt)</h3>
+<p>Kata sandi tidak pernah disimpan dalam bentuk teks. Saat registrasi, sistem
+menghasilkan <i>salt</i> acak dan menyimpan <i>hash</i> scrypt. Saat login,
+perbandingan dilakukan dengan <span class="mono">timingSafeEqual</span> untuk
+mencegah <i>timing attack</i>.</p>
+<pre>function hashPassword(password) {
+  const salt = crypto.randomBytes(16).toString("hex");
+  const hash = crypto.scryptSync(password, salt, 64).toString("hex");
+  return { salt, hash };
+}</pre>
+
+<h3>4.3 Verifikasi Email (OTP)</h3>
+<p>Modul <span class="mono">verifications.js</span> membuat kode enam digit yang
+berlaku 10 menit dan maksimum 5 kali percobaan. Modul
+<span class="mono">mailer.js</span> mengirimnya via Nodemailer. Bila kredensial
+SMTP belum diatur, kode dicetak ke <i>console</i> (mode pengembangan) sehingga
+aplikasi tetap dapat diuji.</p>
+<pre>// verifications.js — membuat kode OTP
+function generateCode() {
+  const num = crypto.randomInt(0, 10 ** VERIFICATION.CODE_LENGTH);
+  return String(num).padStart(VERIFICATION.CODE_LENGTH, "0");
+}</pre>
+<p>Login ditolak apabila akun belum terverifikasi:</p>
+<pre>if (!record.verified) {
+  return { success: false, needVerify: true,
+           error: "Email belum diverifikasi..." };
+}</pre>
+
+<h3>4.4 Identitas Berbasis Token pada WebSocket</h3>
+<p>Ketika bergabung ke room, identitas pengguna diambil dari <b>token sesi</b>,
+bukan dari input mentah client. Dengan demikian hanya pengguna yang sudah login
+yang dapat masuk room.</p>
+<pre>socket.on("join", ({ token, room }, callback) => {
+  const username = sessions.getUser(token);
+  if (!username) return callback?.({ success: false, authError: true });
+  // ... user ditambahkan ke room, riwayat dikirim, anggota diberi tahu
+});</pre>
+
+<h3>4.5 Pemisahan Transfer Berkas</h3>
+<p>Berkas dikirim lewat HTTP (Multer) lalu <i>metadata</i>-nya disebarkan lewat
+WebSocket. Pemisahan ini menjaga jalur WebSocket tetap ringan dan sekaligus
+mendemonstrasikan penggunaan dua protokol. Multer memvalidasi tipe MIME dan
+membatasi ukuran berkas maksimum 25 MB.</p>
+
+<h3>4.6 Penanganan Kesalahan (Error Handling)</h3>
+<ul>
+  <li><b>Validasi input:</b> panjang username/password, format email, nama room wajib diisi.</li>
+  <li><b>Autentikasi:</b> balasan HTTP 401 (kredensial salah) dan 403 (belum verifikasi).</li>
+  <li><b>Unggah berkas:</b> pesan khusus untuk melebihi batas ukuran atau tipe tak didukung.</li>
+  <li><b>Koneksi WebSocket:</b> token tidak valid memicu permintaan login ulang; <i>disconnect</i> memberi tahu anggota room dan memperbarui daftar online.</li>
+  <li><b>Tingkat proses:</b> <span class="mono">process.on("uncaughtException")</span> mencegah server mati tanpa jejak; berkas <span class="mono">users.json</span> yang rusak ditangani dengan aman.</li>
+  <li><b>Sisi client:</b> setiap permintaan dibungkus <span class="mono">try/catch</span> dengan pesan "Tidak dapat terhubung ke server."</li>
+</ul>
+</div>
+
+<!-- ================= 5. HASIL PENGUJIAN ================= -->
+<div class="section">
+<h2>5. Hasil Pengujian</h2>
+
+<p>Pengujian dilakukan dengan menjalankan server secara lokal
+(<span class="mono">http://localhost:3000</span>) dan membuka aplikasi pada dua
+proses/perangkat berbeda untuk mensimulasikan komunikasi antar-client.</p>
+
+<h3>5.1 Skenario dan Hasil</h3>
+<table>
+  <tr><th>No</th><th>Skenario Pengujian</th><th>Hasil Diharapkan</th><th>Status</th></tr>
+  <tr><td>1</td><td>Registrasi akun baru (username, email, password)</td><td>Akun dibuat, kode OTP terkirim ke email</td><td class="ok">Berhasil</td></tr>
+  <tr><td>2</td><td>Login sebelum verifikasi email</td><td>Ditolak (HTTP 403, minta verifikasi)</td><td class="ok">Berhasil</td></tr>
+  <tr><td>3</td><td>Verifikasi dengan kode salah</td><td>Ditolak (HTTP 400, sisa percobaan berkurang)</td><td class="ok">Berhasil</td></tr>
+  <tr><td>4</td><td>Verifikasi dengan kode benar</td><td>Akun aktif, login otomatis ke room</td><td class="ok">Berhasil</td></tr>
+  <tr><td>5</td><td>Login setelah verifikasi</td><td>Berhasil, memperoleh token sesi</td><td class="ok">Berhasil</td></tr>
+  <tr><td>6</td><td>Kirim pesan teks antar dua client</td><td>Pesan diterima seketika (real-time)</td><td class="ok">Berhasil</td></tr>
+  <tr><td>7</td><td>Kirim berkas (PDF/gambar)</td><td>Berkas terkirim &amp; dapat diunduh anggota room</td><td class="ok">Berhasil</td></tr>
+  <tr><td>8</td><td>Indikator "sedang mengetik"</td><td>Tampil pada anggota lain</td><td class="ok">Berhasil</td></tr>
+  <tr><td>9</td><td>Anggota keluar / koneksi terputus</td><td>Notifikasi keluar &amp; daftar online diperbarui</td><td class="ok">Berhasil</td></tr>
+  <tr><td>10</td><td>Unggah berkas melebihi 25 MB / tipe tak didukung</td><td>Ditolak dengan pesan kesalahan</td><td class="ok">Berhasil</td></tr>
+</table>
+
+<h3>5.2 Tangkapan Layar (Screenshot)</h3>
+
+<p><b>a. Tampilan aplikasi — Halaman Login &amp; Registrasi</b></p>
+<div class="ss">[ Tempel screenshot halaman login/registrasi (UI terbaru) di sini ]</div>
+<div class="fig">Gambar 5. Tampilan halaman login dan registrasi.</div>
+
+<p><b>b. Verifikasi email — Layar kode &amp; email yang diterima</b></p>
+<div class="ss">[ Tempel screenshot layar input kode + email OTP yang masuk ]</div>
+<div class="fig">Gambar 6. Proses verifikasi email (kode OTP).</div>
+
+<p><b>c. Proses komunikasi antara client dan server — Ruang Chat</b></p>
+<div class="ss">[ Tempel screenshot ruang chat dengan dua akun berbeda saling berkirim pesan ]</div>
+<div class="fig">Gambar 7. Komunikasi pesan real-time antar dua client dalam satu room.</div>
+
+<p><b>d. Hasil pengujian — Pengiriman berkas</b></p>
+<div class="ss">[ Tempel screenshot pengiriman berkas di ruang chat ]</div>
+<div class="fig">Gambar 8. Pengujian fitur pengiriman berkas.</div>
+
+<p><b>e. Sisi server — Log komunikasi di terminal</b></p>
+<div class="ss">[ Tempel screenshot terminal server (log connect/disconnect atau kode OTP) ]</div>
+<div class="fig">Gambar 9. Log aktivitas pada sisi server.</div>
+
+<div class="note"><b>Catatan:</b> ganti setiap kotak putus-putus di atas dengan
+tangkapan layar Anda. Pada berkas HTML, ganti baris
+<span class="mono">&lt;div class="ss"&gt;...&lt;/div&gt;</span> menjadi
+<span class="mono">&lt;img src="nama-file.png" style="max-width:100%"&gt;</span>,
+lalu cetak ulang ke PDF (Ctrl+P &#8594; Save as PDF).</div>
+</div>
+
+<!-- ================= 6. KESIMPULAN ================= -->
+<div class="section">
+<h2>6. Kesimpulan</h2>
+<p>Aplikasi NetPruyChat berhasil mengimplementasikan konsep komunikasi jaringan
+berbasis <b>client-server</b> menggunakan Node.js. Aplikasi memanfaatkan dua
+protokol jaringan, yaitu <b>HTTP</b> untuk autentikasi dan pengunggahan berkas
+serta <b>WebSocket</b> untuk pertukaran pesan <i>real-time</i>. Seluruh tujuan
+tugas tercapai: data dapat dikirim dan diterima antar-proses, koneksi dan
+pesan dikelola dengan baik, serta kesalahan ditangani secara memadai.</p>
+
+<p>Nilai tambah aplikasi ini adalah lapisan keamanan berupa
+<b>verifikasi email (OTP)</b> saat registrasi dan penyandian kata sandi dengan
+<b>scrypt + salt</b>. Berdasarkan sepuluh skenario pengujian, seluruh fungsi
+berjalan sesuai harapan.</p>
+
+<p><b>Keterbatasan.</b> Sesi login dan riwayat pesan disimpan di memori sehingga
+hilang saat server dimulai ulang; data pengguna disimpan pada berkas JSON, bukan
+basis data. Aplikasi juga belum menerapkan pembatasan laju
+(<i>rate limiting</i>) dan enkripsi <i>end-to-end</i>.</p>
+
+<p><b>Pengembangan selanjutnya.</b> Penggunaan basis data (mis. PostgreSQL atau
+MongoDB), HTTPS/TLS, pembatasan laju untuk mencegah <i>brute-force</i>,
+penyimpanan berkas ke layanan objek, serta <i>deployment</i> publik (mis.
+melalui Cloudflare Tunnel) dapat meningkatkan keamanan, kecepatan, dan
+keandalan aplikasi.</p>
+</div>
+
+<!-- ================= 7. JAWABAN PERTANYAAN ================= -->
+<div class="section qa">
+<h2>7. Jawaban Pertanyaan</h2>
+
+<h3>7.1 Protokol jaringan apa yang digunakan pada aplikasi Anda? Jelaskan alasannya.</h3>
+<p>Aplikasi menggunakan <b>dua protokol yang keduanya berjalan di atas TCP</b>:</p>
+<ul>
+  <li><b>HTTP</b> — untuk menyajikan halaman web, autentikasi (register, verify,
+  login, logout), dan pengunggahan berkas. HTTP dipilih karena bersifat
+  <i>request-response</i> yang cocok untuk operasi sekali jalan seperti login
+  dan unggah berkas, serta mudah diamankan dengan HTTPS.</li>
+  <li><b>WebSocket</b> (melalui Socket.IO) — untuk chat <i>real-time</i>.
+  WebSocket dipilih karena menyediakan koneksi <b>dua arah yang tetap terbuka
+  (<i>full-duplex</i>)</b>, sehingga server dapat langsung mendorong pesan ke
+  client tanpa perlu <i>polling</i> berulang. Ini membuat pesan, notifikasi,
+  dan indikator mengetik tampil seketika dengan overhead rendah.</li>
+</ul>
+<p>TCP dipilih (bukan UDP) karena chat menuntut <b>keandalan dan urutan pesan</b>
+yang terjamin — tidak boleh ada pesan yang hilang atau tertukar urutannya.</p>
+
+<h3>7.2 Bagaimana mekanisme komunikasi antara client dan server?</h3>
+<p>Client pertama-tama melakukan autentikasi via HTTP. Setelah login, server
+memberi <b>token sesi</b>. Client kemudian membuka koneksi <b>WebSocket</b> dan
+mengirim event <span class="mono">join</span> beserta token tersebut; server
+memvalidasi token, memasukkan client ke room, lalu mengirimkan riwayat pesan.
+Selanjutnya:</p>
+<ul>
+  <li>Client mengirim event <span class="mono">chatMessage</span>; server
+  membuat objek pesan, menyimpannya, lalu <i>broadcast</i> event
+  <span class="mono">message</span> ke seluruh anggota room.</li>
+  <li>Untuk berkas, client mengunggah via HTTP <span class="mono">POST /upload</span>,
+  menerima metadata, lalu mengirim event <span class="mono">fileMessage</span>
+  berisi metadata tersebut untuk disebarkan ke room.</li>
+  <li>Event pendukung seperti <span class="mono">typing</span>/<span class="mono">stopTyping</span>
+  dan <span class="mono">roomUsers</span> menjaga pengalaman tetap interaktif.</li>
+</ul>
+<p>Identitas pengirim selalu diambil dari token/pemetaan socket di server,
+bukan dari data mentah client, demi keamanan.</p>
+
+<h3>7.3 Bagaimana aplikasi menangani kesalahan koneksi atau kegagalan pengiriman data?</h3>
+<ul>
+  <li><b>Kegagalan permintaan HTTP</b> dibungkus <span class="mono">try/catch</span>
+  di sisi client dengan pesan yang jelas kepada pengguna.</li>
+  <li><b>Token tidak valid / sesi berakhir</b> (mis. server restart) terdeteksi
+  saat <span class="mono">join</span>; client diarahkan untuk login ulang.</li>
+  <li><b>Reconnect otomatis:</b> Socket.IO mencoba menyambung kembali ketika
+  koneksi terputus; indikator status ("Terhubung/Terputus") memberi umpan balik.</li>
+  <li><b>Kesalahan unggah</b> (ukuran &gt; 25 MB atau tipe tak didukung) dibalas
+  dengan pesan spesifik, bukan sekadar gagal diam.</li>
+  <li><b>Ketahanan server:</b> <span class="mono">uncaughtException</span> dicegat
+  agar server tidak mati mendadak, dan berkas data yang rusak ditangani aman.</li>
+  <li><b>Kode OTP</b> memiliki masa berlaku dan batas percobaan, dengan opsi
+  "kirim ulang kode" bila gagal.</li>
+</ul>
+
+<h3>7.4 Apa kelebihan dan kekurangan implementasi aplikasi Anda?</h3>
+<p><b>Kelebihan:</b></p>
+<ul>
+  <li>Menggunakan dua protokol (HTTP + WebSocket) sehingga tiap kebutuhan
+  ditangani protokol yang paling sesuai.</li>
+  <li>Komunikasi <i>real-time</i> dengan latensi rendah tanpa <i>polling</i>.</li>
+  <li>Keamanan: verifikasi email OTP, kata sandi ter-<i>hash</i> (scrypt+salt),
+  identitas berbasis token, dan pencegahan XSS pada tampilan pesan.</li>
+  <li>Kode modular dan terpisah berdasarkan tanggung jawab, mudah dipelihara.</li>
+  <li>Ringan — tidak memerlukan basis data untuk dijalankan.</li>
+</ul>
+<p><b>Kekurangan:</b></p>
+<ul>
+  <li>Sesi dan riwayat pesan disimpan di memori sehingga hilang saat server
+  dimulai ulang.</li>
+  <li>Data pengguna pada berkas JSON kurang ideal untuk skala besar.</li>
+  <li>Belum ada HTTPS/TLS bawaan, <i>rate limiting</i>, maupun enkripsi
+  <i>end-to-end</i>.</li>
+  <li>Belum mendukung banyak instance server (penskalaan horizontal).</li>
+</ul>
+
+<h3>7.5 Pengembangan agar aplikasi lebih aman, cepat, dan andal.</h3>
+<p><b>Lebih aman:</b> menerapkan HTTPS/TLS, pembatasan laju (<i>rate limiting</i>)
+pada login dan pengiriman kode untuk mencegah <i>brute-force</i>, validasi &amp;
+sanitasi input yang lebih ketat, enkripsi <i>end-to-end</i>, serta manajemen
+sesi dengan masa berlaku (<i>expiry</i>) dan penyegaran token.</p>
+<p><b>Lebih cepat:</b> memanfaatkan <i>caching</i>, kompresi, dan CDN untuk aset
+statis; mengoptimalkan/mengecilkan ukuran berkas media; serta menyajikan berkas
+unggahan melalui penyimpanan objek yang tersebar secara geografis.</p>
+<p><b>Lebih andal:</b> memakai basis data persisten (PostgreSQL/MongoDB) untuk
+pesan dan sesi, penskalaan horizontal beberapa instance server dengan
+<i>adapter</i> Socket.IO (mis. Redis), pemantauan/<i>logging</i>, mekanisme
+<i>backup</i>, serta <i>deployment</i> publik yang stabil (mis. melalui
+Cloudflare Tunnel atau layanan <i>hosting</i> Node).</p>
+</div>
+
+</body>
+</html>

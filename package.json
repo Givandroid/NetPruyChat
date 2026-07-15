@@ -1,0 +1,27 @@
+{
+  "name": "chat-app-jaringan",
+  "version": "1.0.0",
+  "description": "Aplikasi chat client-server (real-time chat + kirim file) untuk Tugas Akhir Pemrograman Jaringan",
+  "main": "server/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node --watch server/server.js"
+  },
+  "keywords": [
+    "chat",
+    "client-server",
+    "websocket",
+    "socket.io",
+    "file-transfer"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "multer": "^2.2.0",
+    "nodemailer": "^6.9.14",
+    "socket.io": "^4.7.5"
+  }
+}

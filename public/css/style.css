@@ -1,0 +1,783 @@
+/* style.css — Tampilan NetChat.
+   Tema gelap meniru design language shadcn/ui (palet "zinc", token HSL,
+   tombol primary putih, border halus, radius 0.5rem). Ikon memakai Lucide
+   (inline SVG). Vanilla CSS — tanpa Tailwind/React. */
+
+:root {
+  /* Token warna shadcn (zinc dark) dalam HSL. */
+  --background: 240 10% 3.9%;
+  --card: 240 6% 7%;
+  --secondary: 240 3.7% 13%;
+  --muted: 240 3.7% 15.9%;
+  --border: 240 3.7% 15.9%;
+  --border-strong: 240 4% 22%;
+  --foreground: 0 0% 98%;
+  --muted-foreground: 240 5% 64.9%;
+  --faint-foreground: 240 4% 46%;
+  --primary: 0 0% 98%;
+  --primary-hover: 0 0% 88%;
+  --primary-foreground: 240 5.9% 10%;
+  --ring: 240 4.9% 83.9%;
+
+  /* Alias siap pakai. */
+  --bg: hsl(var(--background));
+  --surface: hsl(var(--card));
+  --surface-2: hsl(var(--secondary));
+  --surface-3: hsl(var(--muted));
+  --border-c: hsl(var(--border));
+  --border-strong-c: hsl(var(--border-strong));
+  --text: hsl(var(--foreground));
+  --text-dim: hsl(var(--muted-foreground));
+  --text-faint: hsl(var(--faint-foreground));
+  --accent: hsl(var(--primary));
+  --accent-hover: hsl(var(--primary-hover));
+  --on-accent: hsl(var(--primary-foreground));
+  --focus: hsl(var(--ring) / 0.4);
+
+  --online: #22c55e;
+  --danger: #ef4444;
+
+  --radius: 0.75rem;
+  --radius-sm: 0.5rem;
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: "Inter", "Segoe UI", Roboto, system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  height: 100vh;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Ikon Lucide (inline SVG) */
+.icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Scrollbar minimalis */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--surface-3);
+  border-radius: 8px;
+  border: 3px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-strong-c);
+}
+
+/* ======================= BRAND ======================= */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  background: var(--accent);
+  color: var(--on-accent);
+  border-radius: var(--radius-sm);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  flex-shrink: 0;
+}
+
+.brand-mark.sm {
+  width: 30px;
+  height: 30px;
+  font-size: 15px;
+  border-radius: 8px;
+}
+
+.brand-name {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+}
+
+.brand-name.sm {
+  font-size: 16px;
+}
+
+.brand-tag {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+/* ======================= LOGIN ======================= */
+.login-screen {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow: hidden;
+}
+
+/* Cahaya latar halus khas hero shadcn */
+.login-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, hsl(0 0% 100% / 0.04), transparent 60%);
+  top: -150px;
+  right: -100px;
+  pointer-events: none;
+}
+
+.login-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border-c);
+  padding: 36px;
+  border-radius: var(--radius);
+  width: 100%;
+  max-width: 400px;
+  box-shadow: var(--shadow);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 16px;
+}
+
+.field label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.field input {
+  padding: 10px 13px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong-c);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.field input::placeholder {
+  color: var(--text-faint);
+}
+
+.field input:focus {
+  outline: none;
+  border-color: hsl(var(--ring));
+  box-shadow: 0 0 0 3px var(--focus);
+}
+
+/* ======================= TOMBOL ======================= */
+.btn-primary {
+  background: var(--accent);
+  color: var(--on-accent);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 11px 18px;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+.btn-block {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 10px;
+  transition: color 0.15s;
+}
+
+.btn-ghost:hover {
+  color: var(--text);
+}
+
+.error-text {
+  color: var(--danger);
+  font-size: 13px;
+  min-height: 18px;
+  text-align: center;
+  margin-top: 12px;
+}
+
+/* ======================= AVATAR ======================= */
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  flex-shrink: 0;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.avatar.sm {
+  width: 30px;
+  height: 30px;
+  font-size: 13px;
+}
+
+/* ======================= LAYAR CHAT ======================= */
+.chat-screen {
+  height: 100vh;
+  display: flex;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+  width: 280px;
+  background: var(--surface);
+  border-right: 1px solid var(--border-c);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border-c);
+}
+
+.sidebar-body {
+  flex: 1;
+  padding: 18px 14px;
+  overflow-y: auto;
+}
+
+.section-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  padding: 0 8px;
+  margin-bottom: 12px;
+}
+
+.user-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.user-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  transition: background 0.12s;
+}
+
+.user-item:hover {
+  background: var(--surface-2);
+}
+
+.user-item .u-name {
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-item .you-tag {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-dim);
+  background: var(--surface-2);
+  border: 1px solid var(--border-c);
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+.sidebar-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-top: 1px solid var(--border-c);
+}
+
+.me {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  flex: 1;
+  min-width: 0;
+}
+
+.me-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.me-name {
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.me-role {
+  font-size: 11px;
+  color: var(--text-faint);
+}
+
+/* Tombol ikon (keluar) — gaya ghost icon button shadcn */
+.btn-leave {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong-c);
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.btn-leave:hover {
+  background: var(--danger);
+  border-color: var(--danger);
+  color: #fff;
+}
+
+/* ---------- Area utama ---------- */
+.chat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--bg);
+}
+
+.chat-header {
+  height: 66px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--border-c);
+  background: var(--surface);
+}
+
+.chat-header-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.hash-icon {
+  color: var(--text-faint);
+  width: 18px;
+  height: 18px;
+}
+
+.room-name {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.member-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--text-dim);
+  background: var(--surface-2);
+  border: 1px solid var(--border-c);
+  padding: 3px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.member-badge .icon {
+  width: 13px;
+  height: 13px;
+}
+
+/* Status koneksi */
+.status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-faint);
+}
+
+.status.connected .status-dot {
+  background: var(--online);
+  box-shadow: 0 0 8px var(--online);
+}
+
+.status.disconnected .status-dot {
+  background: var(--danger);
+  box-shadow: 0 0 8px var(--danger);
+}
+
+/* ---------- Daftar pesan ---------- */
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.msg-row {
+  display: flex;
+  gap: 10px;
+  max-width: 74%;
+  align-self: flex-start;
+  animation: fadeUp 0.18s ease;
+}
+
+.msg-row.me {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bubble {
+  background: var(--surface-2);
+  border: 1px solid var(--border-c);
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  border-top-left-radius: 4px;
+  min-width: 0;
+}
+
+.msg-row.me .bubble {
+  background: var(--accent);
+  color: var(--on-accent);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  border-top-right-radius: 4px;
+}
+
+.bubble-author {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.bubble-text {
+  font-size: 15px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.bubble-time {
+  font-size: 10px;
+  color: var(--text-faint);
+  margin-top: 5px;
+  text-align: right;
+}
+
+.msg-row.me .bubble-time {
+  color: hsl(var(--primary-foreground) / 0.55);
+}
+
+/* Notifikasi sistem (masuk/keluar) */
+.notice {
+  align-self: center;
+  font-size: 12px;
+  color: var(--text-dim);
+  background: var(--surface-2);
+  border: 1px solid var(--border-c);
+  padding: 5px 14px;
+  border-radius: 20px;
+}
+
+/* ---------- Lampiran file ---------- */
+.file-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Label ekstensi file bergaya "badge" shadcn */
+.file-card .file-icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  background: hsl(var(--muted) / 0.6);
+  border: 1px solid var(--border-c);
+  color: var(--text-dim);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+/* File dalam bubble sendiri (latar terang): label kontras gelap */
+.msg-row.me .file-card .file-icon {
+  background: hsl(var(--primary-foreground) / 0.1);
+  border-color: hsl(var(--primary-foreground) / 0.15);
+  color: var(--on-accent);
+}
+
+.file-card .file-name {
+  font-size: 14px;
+  font-weight: 600;
+  word-break: break-all;
+}
+
+.file-card .file-size {
+  font-size: 11px;
+  opacity: 0.75;
+  margin-top: 2px;
+}
+
+.file-image img {
+  max-width: 260px;
+  max-height: 260px;
+  border-radius: var(--radius-sm);
+  display: block;
+  cursor: pointer;
+}
+
+/* ---------- Indikator mengetik ---------- */
+.typing-indicator {
+  height: 22px;
+  padding: 0 24px;
+  font-size: 12px;
+  color: var(--text-dim);
+  font-style: italic;
+  display: flex;
+  align-items: center;
+}
+
+/* ---------- Pratinjau file terpilih ---------- */
+.file-preview {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 24px 10px;
+  padding: 9px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border-c);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.file-preview-name {
+  flex: 1;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-preview button {
+  display: grid;
+  place-items: center;
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: color 0.12s, background 0.12s;
+}
+
+.file-preview button:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+/* ---------- Form kirim pesan ---------- */
+.message-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 24px 22px;
+}
+
+/* Tombol ikon lampirkan — outline icon button */
+.btn-attach {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  border: 1px solid var(--border-strong-c);
+  color: var(--text-dim);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.12s;
+  flex-shrink: 0;
+}
+
+.btn-attach:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.btn-attach .icon,
+.btn-send .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.message-form input[type="text"] {
+  flex: 1;
+  padding: 11px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong-c);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.message-form input[type="text"]::placeholder {
+  color: var(--text-faint);
+}
+
+.message-form input[type="text"]:focus {
+  outline: none;
+  border-color: hsl(var(--ring));
+  box-shadow: 0 0 0 3px var(--focus);
+}
+
+/* Tombol ikon kirim — primary icon button */
+.btn-send {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: var(--accent);
+  color: var(--on-accent);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.btn-send:hover {
+  background: var(--accent-hover);
+}
+
+.btn-send:active {
+  transform: translateY(1px);
+}
+
+/* ======================= RESPONSIF ======================= */
+@media (max-width: 640px) {
+  .sidebar {
+    width: 76px;
+  }
+  .brand-name.sm,
+  .section-title,
+  .me-info {
+    display: none;
+  }
+  .sidebar-brand,
+  .sidebar-footer {
+    justify-content: center;
+  }
+  .user-item {
+    justify-content: center;
+  }
+  .user-item .u-name,
+  .user-item .you-tag {
+    display: none;
+  }
+  .msg-row {
+    max-width: 88%;
+  }
+}
